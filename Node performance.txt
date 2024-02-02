@@ -1,0 +1,48 @@
+Node server performance:
+Data--->node server--->browser (All in single thread)
+	(Event Loop)
+
+Node and event loop can juggle this multiple requests coming in by taking advantage
+of multiple threads in thread pools and os
+
+Load balancing: It is a way of distributing a task to a set of resources.i.e. dividing
+which request to be handled by which processes
+
+vertical scaling- increasing speed of server
+
+horizontal scaling- distributing same task among
+multiple server
+Refer- wikipedia.
+
+PM2:
+1. pm2 start server ->to start 
+2. pm2 start 'id' -> number to stop server
+3. pm2 delete server -> to delete list
+4. pm2 ls/list/status -> to see number of running processes
+5. pm2 start server.js -i(instance) 'number/max' -> to create worker process
+6. pm2 logs -> to see logs in server
+7. pm2 restart server -> to restart server
+8. pm2 logs --lines 200 -> to see last 200 logs
+9. pm2 show - amount of memory a process takes
+10. pm2 monit - to show process dashboard
+11. pm2 start server -l log.txt -i max - to see logs in txt file
+12. pm2 reload server -> to reload processes one by one keeping one 
+process running all time, best way to make changes to website when website
+is live
+
+Worker Thread:
+Worker thread just like cluster helps in taking advantage of multiple cpu cores
+Worker thread uses v8 isolates (something like code sandbox) where as
+cluster uses processes
+
+  			node index.js
+			      |
+ 			 main thread
+	new worker()   /           \new worker()
+		worker thread      worker thread
+
+cluster allows to run multiple instances of node in seperate processes i.e. for 3 node instance 3 processes
+
+where as worker thread allows running multiple instances of node in same process
+
+worker thread can share memory with each other
